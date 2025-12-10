@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Good Morning</title>
+<style>
+    body {
+        margin: 0;
+        height: 100vh;
+        background: linear-gradient(180deg, #ff9ecf 0%, #ff77ac 50%, #ff5e99 100%);
+        color: white;
+        overflow: hidden;
+        font-family: 'Courier New', monospace;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        position: relative;
+    }
+
+    .title {
+        font-size: 3rem;
+        animation: glow 2s infinite alternate;
+    }
+
+    @keyframes glow {
+        from { text-shadow: 0 0 10px #ffe4f3; }
+        to { text-shadow: 0 0 25px white; }
+    }
+
+    .typed-name {
+        margin-top: 20px;
+        font-size: 1.8rem;
+        color: #fffbea;
+        white-space: nowrap;
+        border-right: 2px solid #fffbea;
+        overflow: hidden;
+        width: fit-content;
+    }
+
+    .sub {
+        margin-top: 15px;
+        font-size: 1.2rem;
+        opacity: 0;
+        animation: fadeIn 3s forwards 4s;
+        color: #fff8f8;
+        text-align: center;
+        width: 100%;
+    }
+
+    @keyframes fadeIn {
+        to { opacity: 1; }
+    }
+
+    /* Snow */
+    .snowflake {
+        position: fixed;
+        top: -10px;
+        color: white;
+        font-size: 1rem;
+        opacity: 0.9;
+        pointer-events: none;
+        animation: fall linear infinite;
+        text-shadow: 0 0 5px white;
+    }
+
+    @keyframes fall {
+        to { transform: translateY(110vh); }
+    }
+
+    /* Sparkles */
+    .sparkle {
+        position: absolute;
+        color: #fff9ff;
+        font-size: 1rem;
+        opacity: 0;
+        animation: sparkleFloat 3s ease-in-out forwards;
+        pointer-events: none;
+        text-shadow: 0 0 8px white;
+    }
+
+    @keyframes sparkleFloat {
+        0% { transform: scale(0.5); opacity: 0; }
+        30% { opacity: 1; }
+        100% { transform: scale(1.2) translateY(-40px); opacity: 0; }
+    }
+
+    /* Bubble Compliments */
+    .compliment {
+        position: absolute;
+        background: rgba(255, 255, 255, 0.25);
+        padding: 10px 15px;
+        border-radius: 25px;
+        font-size: 1.1rem;
+        opacity: 0;
+        animation: bubbleUp 4s ease-out forwards;
+        color: #fff4f8;
+        backdrop-filter: blur(6px);
+        border: 1px solid rgba(255,255,255,0.4);
+        box-shadow: 0 0 10px rgba(255,255,255,0.5);
+    }
+
+    @keyframes bubbleUp {
+        0% { opacity: 0; transform: translateY(20px) scale(0.8); }
+        20% { opacity: 1; }
+        100% { opacity: 0; transform: translateY(-60px) scale(1.1); }
+    }
+</style>
+</head>
+<body>
+
+<div class="title">Good Morning ☀️</div>
+<div class="typed-name" id="typed"></div>
+<div class="sub">Hope you have fun today!!!</div>
+
+<script>
+    /* Typewriter Effect for Kenya */
+    const nameText = "Kenya ✨";
+    let index = 0;
+    const speed = 150;
+    const typedElement = document.getElementById("typed");
+
+    function typeLetter() {
+        if (index < nameText.length) {
+            typedElement.textContent += nameText.charAt(index);
+            index++;
+            setTimeout(typeLetter, speed);
+        } else {
+            typedElement.style.borderRight = "0px";
+        }
+    }
+    setTimeout(typeLetter, 1000);
+
+    /* Snow Generator */
+    function createSnow() {
+        const snow = document.createElement("div");
+        snow.classList.add("snowflake");
+        snow.textContent = "❄";
+        snow.style.left = Math.random() * 100 + "vw";
+        snow.style.animationDuration = 3 + Math.random() * 5 + "s";
+        snow.style.fontSize = (Math.random() * 10 + 10) + "px";
+        document.body.appendChild(snow);
+        setTimeout(() => snow.remove(), 8000);
+    }
+    setInterval(createSnow, 150);
+
+    /* Sparkles */
+    function createSparkle() {
+        const spark = document.createElement("div");
+        spark.classList.add("sparkle");
+        spark.textContent = "✨";
+        spark.style.left = Math.random() * 100 + "vw";
+        spark.style.top = Math.random() * 100 + "vh";
+        document.body.appendChild(spark);
+        setTimeout(() => spark.remove(), 3000);
+    }
+    setInterval(createSparkle, 800);
+
+    /* Bubble Compliments */
+    const compliments = [
+        "You're beautiful ❤️",
+        "You make my day 🌸",
+        "I enjoy talking to you 😊",
+        "You're special ✨",
+        "You're one of a kind 💗",
+        "You have a good heart 💞",
+        "Your smile is crazy cute 😍",
+        "You’re unforgettable 💕"
+    ];
+
+    function createCompliment() {
+        const comp = document.createElement("div");
+        comp.classList.add("compliment");
+        comp.textContent = compliments[Math.floor(Math.random() * compliments.length)];
+
+        comp.style.left = Math.random() * 70 + 15 + "vw";
+        comp.style.bottom = Math.random() * 20 + 10 + "vh";
+
+        document.body.appendChild(comp);
+        setTimeout(() => comp.remove(), 4000);
+    }
+
+    setInterval(createCompliment, 3500);
+</script>
+
+</body>
+</html>
